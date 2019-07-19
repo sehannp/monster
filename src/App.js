@@ -1,31 +1,24 @@
 import React from "react";
+import { CardList } from "./components/card-list/card-list.component";
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      name: "Sehan"
+      monsters: []
     };
   }
 
-  runfunc() {
-    alert("Poda");
-    doit();
-    this.setState({
-      name: "Ssssss"
-    });
-  }
-
-  doit() {
-    console.log(this.state.name);
+  componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then(response => response.json())
+      .then(response => this.setState({ monsters: response }));
   }
 
   render() {
     return (
       <div className="App">
-        <h1>Hello CodeSandbox</h1>
-        <h2>Stasrt editing to see some magic happen!</h2>
-        <button onClick={this.runfunc}>{this.state.name}</button>
+        <CardList monsters={this.state.monsters} />
       </div>
     );
   }
